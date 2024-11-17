@@ -1,0 +1,4 @@
+问题1:
+新建项目工程，编译就报错
+解决：file->Project Structure->Project->module->SDK 的版本
+
