@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.CommonLibProject" parent="android:Theme.Material.Light.NoActionBar" />
+    <!--弹框加载样式-->
+    <!--透明色：<color name="transparent">#00000000</color>-->
+    <style name="MyProgressDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item><!--背景透明-->
+        <item name="android:windowIsFloating">true</item><!--是否浮动-->
+        <item name="android:backgroundDimEnabled">false</item><!--对话框背后的内容是否被暗淡-->
+        <item name="android:windowContentOverlay">@null</item><!--设置窗口的内容覆盖物-->
+        <item name="android:statusBarColor">@null</item><!--状态栏背景色-->
+    </style>
+
+</resources>

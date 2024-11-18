@@ -4,8 +4,9 @@ plugins {
 }
 
 android {
+    namespace = "com.common.commonlib"
     compileSdk = libs.versions.compileSdk.get().toInt()
-    namespace = "com.network.networklibrary"
+
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
 
@@ -29,21 +30,17 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation(libs.retrofit)
-    implementation(libs.converter.scalars)
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.converter.gson)
-    implementation(libs.okhttp)
-    implementation(libs.logging.interceptor)
-
 }

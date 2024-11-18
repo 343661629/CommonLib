@@ -24,3 +24,4 @@ dependencyResolutionManagement {
 rootProject.name = "CommonLibProject"
 include(":app")
 include(":NetWorkLibrary")
+include(":CommonLib")

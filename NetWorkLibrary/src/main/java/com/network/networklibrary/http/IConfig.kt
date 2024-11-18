@@ -17,11 +17,13 @@ interface IConfig {
     fun addHeader(): HashMap<String, String>
 
     //对于请求使用SSL加密证书的，则需要实现该方法
-    fun sslSocketFactory(): SSLSocketFactory
+    fun sslSocketFactory(): SSLSocketFactory?
 
-    fun hostNameVerifier(): HostnameVerifier
+    fun hostNameVerifier(): HostnameVerifier?
 
-    fun x509TrustManager(): X509TrustManager
+    fun x509TrustManager(): X509TrustManager?
+
+    fun commonParam():MutableMap<String,String>
 
 
 }
