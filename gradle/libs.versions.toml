@@ -18,6 +18,8 @@ compileSdk = "35"
 minSdk = "24"
 versionCode = "1"
 #versionName = "1.0"
+constraintlayout = "1.0.1"
+navigation = "2.7.3"
 
 
 
@@ -46,10 +48,8 @@ kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
-#kotlinx-coroutines-flow = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-flow", version.ref = "kotlinx-coroutines-flow" }
-
-
-
+constraintlayout-compose = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "constraintlayout" }
+navigation-compose = {group="androidx.navigation", name="navigation-compose", version.ref="navigation"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

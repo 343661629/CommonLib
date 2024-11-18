@@ -7,4 +7,97 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="mega_brand0">#FF005D8E</color>
+    <!--Brand1_次强调色-->
+    <color name="mega_brand1">#FF337DA5</color>
+    <!--Brand2_点击-->
+    <color name="mega_brand2">#FF669EBB</color>
+    <!--Brand3_弱化-->
+    <color name="mega_brand3">#FF99BED2</color>
+    <!--Brand4_禁用-->
+    <color name="mega_brand4">#FFBFD0D9</color>
+
+
+    <color name="mega_success0">#FF34C759</color>
+    <color name="mega_success1">#FF5DD27A</color>
+    <color name="mega_success2">#FF85DD9B</color>
+    <color name="mega_success3">#FFAEE9BD</color>
+    <color name="mega_success4">#FFD6F4DE</color>
+
+
+    <color name="mega_warning0">#FFFFC24D</color>
+    <color name="mega_warning1">#FFFDCC6E</color>
+    <color name="mega_warning2">#FFFBD68F</color>
+    <color name="mega_warning3">#FFF8E0AF</color>
+    <color name="mega_warning4">#FFF6EAD0</color>
+
+    <color name="mega_error0">#FFFF4D4D</color>
+    <color name="mega_error1">#FFFD6E6E</color>
+    <color name="mega_error2">#FFFB908F</color>
+    <color name="mega_error3">#FFF8B1AF</color>
+    <color name="mega_error4">#FFF6D3D0</color>
+
+
+    <!--Primary_主要信息-->I
+    <color name="mega_text_primary">#FF333333</color>
+    <!--Secondary_次要信息-->
+    <color name="mega_text_secondary">#FF666666</color>
+    <!--Tertiary_补充说明-->
+    <color name="mega_text_tertiary">#FF999999</color>
+    <!--Quaternary_弱化-->
+    <color name="mega_text_weaken">#FFCCCCCC</color>
+    <!--Quaternary_禁用-->
+    <color name="mega_text_quaternary">#FFCCCCCC</color>
+    <!--White_色块上信息-->
+    <color name="mega_text_white">#FFFFFFFF</color>
+    <!--White_色块上禁用-->
+    <color name="mega_text_whiteUnable">#80FFFFFF</color>
+
+    <!--Primary_主容器-->
+    <color name="mega_container_primary">#FFFFFFFF</color>
+    <color name="mega_container_primary_pressed">#FFF0F0F0</color>
+    <color name="mega_container_primary_disabled">#AAFFFFFF</color>
+    <!--Secondary_次要容器-->
+    <color name="mega_container_secondary">#FFF4F4F1</color>
+
+    <!--Primary_弹窗_主容器-->
+    <color name="mega_alert_container_primary">#FFF4F4F1</color>
+    <!--Secondary_弹窗_次要容器-->
+    <color name="mega_alert_container_secondary">#FFFFFFFF</color>
+
+    <!--BG0_页面背景-->
+    <color name="mega_background_bg0">#FFF4F4F1</color>
+    <!--BG1_二级背景-->
+    <color name="mega_background_bg1">#FFEFEFEC</color>
+    <color name="mega_background_bg2">#FFFBFBFB</color>
+
+    <!--分割线&描边 Lines-->
+    <color name="mega_line_line0">#FFE9E9E9</color>
+
+    <!--Primary_蒙层-->
+    <color name="mega_mask_primary">#80000000</color>
+    <!--Secondary_蒙层-->
+    <color name="mega_mask_secondary">#D9000000</color>
+    <!--设置中motion检查遮罩，在flc中使用-->
+    <color name="mega_mask_3">#40FFFFFF</color>
+
+    <!--Other-->
+    <color name="mega_bg_location">#0C005D8E</color>
+
+    <color name="mega_pic_mask_primary">#00000000</color>
+
+    <color name="mega_bg_image_code">#FFEFEFEC</color>
+    <color name="mega_theme_color_f1f3f5_323232">#F1F3F5</color>
+    <color name="mega_warning0_20_percent">#33FFC24D</color>
+    <color name="mega_theme_color_99bed2_114864">#99bed2</color>
+    <color name="mega_theme_color_bfffffff_cc292b34">#bfffffff</color>
+    <color name="mega_brand0_20_percent">#33005D8E</color>
+    <color name="mega_container_secondary_60_percent">#99F4F4F1</color>
+    <!--实时流心率睡眠-->
+    <color name="color_real_time_vide_heart_sleep">#FF999999</color>
+
+    <color name="mega_trans_hint_text">#66000000</color>
+
+    <color name="mega_theme_color_ff333333_ffe9e9e9">#E9E9E9</color>
+    <color name="mega_wheel_text_center">#FF2A2A2A</color>
 </resources>
