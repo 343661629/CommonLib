@@ -1,4 +1,4 @@
-package com.example.commonlibproject.ui.theme
+package com.example.commonlibproject.ui.activity.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
@@ -9,5 +9,3 @@ val Pink80 = Color(0xFFEFB8C8)
 val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
-val color_45a7ff= Color(0xFF45a7ff)
-val color_ffffff= Color(0xFFffffff)

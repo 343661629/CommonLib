@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CommonLibProject</string>
+    <string name="title_activity_StartActivity">Splashctivity2</string>
 </resources>

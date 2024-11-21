@@ -2,3 +2,67 @@
 新建项目工程，编译就报错
 解决：file->Project Structure->Project->module->SDK 的版本
 
+
+使用：
+class NetWorkQuest : IConfig {
+    val netWorkConfig by lazy { NetWorkConfig() }
+    private val headerParam = HashMap<String, String>()
+
+
+    /**
+     * 获取所有新闻类型列表
+     */
+    inline fun <reified T> getNewsTypeList(type:Int,crossinline result: (Result<T>) -> Unit) {
+        val param = commonParam()
+        launchOnMain {
+            netWorkConfig.get(Constants.GET_NEWS_TYPE_LIST, param, this@NetWorkQuest).collect {
+                it.onSuccess { data ->
+                    Log.i("NewVideModel", "data--->$data")
+                    val parsedData = GsonHelper.fromJson(data, T::class.java)
+                    parsedData?.let {
+                        result(Result.success(parsedData))
+                    } ?: run {
+                        result(Result.failure(Throwable("data is null")))
+                    }
+                }.onFailure { error ->
+                    // 处理错误
+                    Log.e("NewVideModel", "error--->${error.message}")
+                    result(Result.failure(Throwable(error.message)))
+                }
+            }
+        }
+    }
+
+
+
+    override fun addBaseUrl(): String {
+        return Constants.BASE_URL
+    }
+
+    override fun addHeader(): HashMap<String, String> {
+        return headerParam
+    }
+
+    override fun sslSocketFactory(): SSLSocketFactory? {
+        return null
+    }
+
+    override fun hostNameVerifier(): HostnameVerifier? {
+        return null
+    }
+
+    override fun x509TrustManager(): X509TrustManager? {
+        return null
+    }
+
+
+    override fun commonParam(): MutableMap<String, String> {
+        val commonParam = mutableMapOf<String, String>()
+        commonParam["app_id"] = "scvkymfqjaogwgmc"
+        commonParam["app_secret"] = "8tdgQagZF9JY4YRbzCghaz5uN3BZYjAF"
+        return commonParam
+    }
+
+
+}
+

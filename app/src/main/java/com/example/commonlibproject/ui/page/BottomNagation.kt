@@ -1,6 +1,8 @@
 package com.example.commonlibproject.ui.page
 
 import android.util.Log
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -23,40 +25,50 @@ import com.example.commonlibproject.model.BottomItemModel
 
 /**
  * Author: Jialin Huang
- * Description:底部导航栏
+ * Description:底部导航栏，后面需要换成LazyColumn实现
  * Date: 2024/11/18
  */
 
 @Preview(showBackground = true, showSystemUi = true, device = Devices.PIXEL_4)
 @Composable
 fun textUi() {
-//    bottomItem("home", R.mipmap.shouyeweixuanzhong, false)
-    bottomNavigation()
+//    val items = listOf(
+//        BottomItemModel("Home", R.mipmap.shouyeweixuanzhong, false),
+//        BottomItemModel("News", R.mipmap.xinwenweixuanzhong, false),
+//        BottomItemModel("Story", R.mipmap.gushixuanzhong, false),
+//        BottomItemModel("lottery", R.mipmap.caipiaoxuanzhong, true),
+//    )
+//    bottomNavigation(items = items, onClickItem = {})
 }
 
 
 @Composable
-fun bottomNavigation() {
-    val items = listOf(
-        BottomItemModel("Home", R.mipmap.shouyeweixuanzhong, false),
-        BottomItemModel("News", R.mipmap.xinwenweixuanzhong, false),
-        BottomItemModel("Story", R.mipmap.gushixuanzhong, false),
-        BottomItemModel("lottery", R.mipmap.caipiaoxuanzhong, true),
-    )
+fun bottomNavigation(
+    items:MutableList<BottomItemModel>,
+    onClickItem: (index: Int) -> Unit
+) {
     Row(
         modifier = Modifier
     ) {
-        items.forEach { item ->
-            Log.d("bottomNavigation", "bottomNavigation: ${item.name}")
-            bottomItem(item.name, item.icon, item.isSelect,Modifier.weight(1f))
+        items.forEachIndexed() { index, item ->
+            Log.d("bottomNavigation", "bottomNavigation: ${item.isSelect}")
+            Box(modifier = Modifier
+                .weight(1f)
+                .clickable {
+                    onClickItem(index)
+                }, contentAlignment = Alignment.Center) {
+                bottomItem(item.name, item.icon, item.isSelect.value)
+            }
+
         }
     }
 }
 
 
 @Composable
-fun bottomItem(name: String, icon: Int, isSelect: Boolean, modifier: Modifier = Modifier) {
-    Column(modifier = modifier) {
+fun bottomItem(name: String, icon: Int, isSelect: Boolean) {
+    Column {
+        Spacer(modifier = Modifier.height(5.dp))
         Icon(
             painter = painterResource(id = icon),
             contentDescription = null,

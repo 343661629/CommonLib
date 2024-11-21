@@ -2,6 +2,7 @@ package com.network.networklibrary.util
 
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
+import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
 /**
@@ -10,36 +11,46 @@ import java.lang.reflect.Type
  * Date: 2024/11/17
  */
 object GsonHelper {
-    val gson = Gson()
+    private val gson by lazy { Gson() }
 
-    fun Any?.toJson(): String = this?.let { gson.toJson(it) } ?: ""
+    fun toJson(src: Any?): String {
+        return src?.let { gson.toJson(it) } ?: ""
+    }
 
-    fun Any?.toJson(typeOfSrc: Type): String = this?.let { gson.toJson(it, typeOfSrc) } ?: ""
+    fun toJson(src: Any?, typeOfSrc: Type): String {
+        return src?.let { gson.toJson(it, typeOfSrc) } ?: ""
+    }
 
-    inline fun <reified T> String?.fromJson(): T? = this?.takeIf { it.isNotEmpty() }?.let {
-        try {
-            gson.fromJson(it, T::class.java)
+    fun <T> fromJson(json: String?, classOfT: Class<T>): T? {
+        if (json.isNullOrEmpty()) return null
+        return try {
+            gson.fromJson(json, classOfT)
         } catch (e: JsonSyntaxException) {
             e.printStackTrace()
             null
         }
     }
 
-    fun <T> String?.fromJson(type: Type): T? = this?.takeIf { it.isNotEmpty() }?.let {
-        try {
-            gson.fromJson(it, type)
+    fun <T> fromJson(json: String?, type: Type): T? {
+        if (json.isNullOrEmpty()) return null
+        return try {
+            gson.fromJson(json, type)
         } catch (e: JsonSyntaxException) {
             e.printStackTrace()
             null
         }
     }
 
-    inline fun <reified T> String?.fromJsonToList(): List<T> = this?.takeIf { it.isNotEmpty() }?.let {
-        try {
-            gson.fromJson(it, Array<T>::class.java)?.toList() ?: emptyList()
+    fun <T> fromJsonToList(json: String?, clazz: Class<Array<T>>): List<T> {
+        if (json.isNullOrEmpty()) return emptyList()
+        return try {
+            val arr = gson.fromJson(json, clazz)
+            arr?.toList() ?: emptyList()
         } catch (e: JsonSyntaxException) {
             e.printStackTrace()
             emptyList()
         }
-    } ?: emptyList()
+    }
+
+
 }

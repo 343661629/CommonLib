@@ -8,16 +8,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -40,41 +40,46 @@ fun test() {
 
 @Composable
 fun customTitleBar(
+    isNeedBack: Boolean = true,
     titleStr: String = "title",
     rightText: String = "",
     callBack: (() -> Unit)? = null,
-    rightCallBack: (() -> Unit)? = null
+    rightCallBack: (() -> Unit)? = null,
+    titleColor: Int = R.color.white
 ) {
     val context = LocalContext.current
     val activity = context as? Activity
+    var isVisible by remember { mutableStateOf(isNeedBack) }
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
             .height(50.dp)
-            .background(color = colorResource(id = R.color.color_real_time_vide_heart_sleep))
+            .background(color = colorResource(id = titleColor))
     ) {
         val (backImage, title, right) = createRefs()
-        Box(modifier = Modifier
-            .constrainAs(backImage) {
-                start.linkTo(parent.start)
-                top.linkTo(parent.top)
-                bottom.linkTo(parent.bottom)
-            }
-            .clickable {
-                callBack?.invoke() ?: run {
-                    activity?.finish()
+        if (isVisible) {
+            Box(modifier = Modifier
+                .constrainAs(backImage) {
+                    start.linkTo(parent.start)
+                    top.linkTo(parent.top)
+                    bottom.linkTo(parent.bottom)
                 }
+                .clickable {
+                    callBack?.invoke() ?: run {
+                        activity?.finish()
+                    }
+                }
+            ) {
+                Icon(
+                    painter = painterResource(id = R.mipmap.fanhui), contentDescription = null,
+                    modifier = Modifier
+                        .size(30.dp)
+                )
             }
-        ) {
-            Icon(
-                painter = painterResource(id = R.mipmap.fanhui), contentDescription = null,
-                modifier = Modifier
-                    .size(30.dp)
-            )
         }
 
         Text(text = titleStr,
-            style = TextStyle(color = colorResource(id = R.color.white), fontSize = 18.sp),
+            style = TextStyle(color = colorResource(id = R.color.black), fontSize = 18.sp),
             modifier = Modifier.constrainAs(title) {
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
@@ -99,8 +104,6 @@ fun customTitleBar(
 
             )
         }
-
-
     }
 
 

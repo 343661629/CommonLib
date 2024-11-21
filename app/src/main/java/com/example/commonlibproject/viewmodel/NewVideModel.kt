@@ -1,11 +1,10 @@
 package com.example.commonlibproject.viewmodel
 
 import android.util.Log
-import androidx.compose.ui.platform.LocalGraphicsContext
 import androidx.lifecycle.ViewModel
+import com.common.commonlib.util.launchOnMain
+import com.example.commonlibproject.model.NewTypeModel
 import com.example.commonlibproject.network.NetWorkQuest
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 /**
  * Author: Jialin Huang
@@ -20,22 +19,30 @@ class NewVideModel : ViewModel() {
      * 获取新闻类型
      */
     fun getNewType() {
-        GlobalScope.launch {
-            netWorkQuest.getNewsTypeList().collect { result ->
-                result.onSuccess { data ->
-                    // 更新UI
-                    Log.e("NewVideModel", "data--->$data")
-                }.onFailure { error ->
-                    // 处理错误
-                    Log.e("NewVideModel", "error--->${error.message}")
-                }
+//        launchOnMain {
+//            netWorkQuest.getNewsTypeList().collect { result ->
+//                result.onSuccess { data ->
+//                    // 更新UI
+//                    Log.e("NewVideModel", "data--->$data")
+//                }.onFailure { error ->
+//                    // 处理错误
+//                    Log.e("NewVideModel", "error--->${error.message}")
+//                }
+//            }
+//        }
+
+        netWorkQuest.getNewsTypeList<NewTypeModel> (1){ result ->
+            result.onSuccess { data ->
+                // 更新UI
+                Log.e("NewVideModel", "data--->$data")
+            }.onFailure { error ->
+                // 处理错误
+                Log.e("NewVideModel", "error--->${error.message}")
             }
-
         }
+
+
     }
-
-
-
 }
 
 
