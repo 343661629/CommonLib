@@ -5,6 +5,7 @@ import com.common.commonlib.util.launchOnMain
 import com.network.networklibrary.http.IConfig
 import com.network.networklibrary.http.NetWorkConfig
 import com.network.networklibrary.util.GsonHelper
+import com.network.networklibrary.util.handleNetworkResult
 import kotlinx.coroutines.flow.Flow
 import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLSocketFactory
@@ -47,21 +48,68 @@ class NetWorkQuest : IConfig {
 
     /**
      * 获取验证码
-     * @param phoneNumber 手机号
+     * @param phone 手机号
      * @param type 类型，0 获取注册验证码 1 修改密码验证码 2 验证码登录发送验证码
      */
-    fun getSMSCode(phoneNumber: String, type: Int): Flow<Result<String>> {
+    inline fun <reified T> getSMSCode(
+        type: Int,
+        phone: String,
+        crossinline result: (Result<T>) -> Unit
+    ) {
         val param = commonParam()
-        return netWorkConfig.get(Constants.GET_SMS_CODE, param, this)
+        param["phone"] = phone
+        param["type"] = type.toString()
+        launchOnMain {
+            netWorkConfig.get(Constants.GET_SMS_CODE, param, this@NetWorkQuest).collect { result ->
+                handleNetworkResult<T>(result,
+                    onSuccess = { parsedData ->
+                        result(Result.success(parsedData))
+                    },
+                    onFailure = { error ->
+                        result(Result.failure(error))
+                    }
+                )
+            }
+        }
     }
 
 
     /**
      * 手机号注册
      */
-    fun getRegister(): Flow<Result<String>> {
+    inline fun <reified T> register(
+        phone: String,
+        code: String,
+        nickname: String,
+        password: String,
+        sex: Int,
+        birthday: String = "1999-08-09",
+        email: String = "12345678@qq.com",
+        extra: String = "",
+        crossinline result: (Result<T>) -> Unit
+    ) {
         val param = commonParam()
-        return netWorkConfig.get(Constants.GET_REGISTER, param, this)
+        param["phone"] = phone
+        param["code"] = code
+        param["nickname"] = nickname
+        param["password"] = password
+        param["sex"] = sex.toString()
+        param["birthday"] = birthday
+        param["email"] = email
+        param["extra"] = extra
+
+        launchOnMain {
+            netWorkConfig.get(Constants.GET_REGISTER, param, this@NetWorkQuest).collect { result ->
+                handleNetworkResult<T>(result,
+                    onSuccess = { parsedData ->
+                        result(Result.success(parsedData))
+                    },
+                    onFailure = { error ->
+                        result(Result.failure(error))
+                    }
+                )
+            }
+        }
     }
 
 

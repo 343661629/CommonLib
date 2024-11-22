@@ -118,7 +118,8 @@ fun CustomButton(
     modifier: Modifier = Modifier.fillMaxWidth(),
     backgroundColor: Color = color_45a7ff,
     contentColor: Color = Color.White,
-    textSize: TextUnit = 16.sp
+    textSize: TextUnit = 16.sp,
+    enabled: Boolean = true
 ) {
     Button(
         onClick = onClick,

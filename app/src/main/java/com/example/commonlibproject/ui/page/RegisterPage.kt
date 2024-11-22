@@ -1,5 +1,6 @@
 package com.example.commonlibproject.ui.page
 
+import android.text.TextUtils
 import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -8,19 +9,26 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavHostController
+import com.common.commonlib.util.ToastUtil
+import com.common.commonlib.util.launchOnMain
 import com.example.commonlibproject.R
 import com.example.commonlibproject.common.pageBackground
+import com.example.commonlibproject.viewmodel.UserInfoViewModel
+import com.network.networklibrary.util.GsonHelper
+import kotlinx.coroutines.delay
 
 /**
  * Author: Jialin Huang
@@ -29,7 +37,7 @@ import com.example.commonlibproject.common.pageBackground
  */
 
 @Composable
-fun registerPage(navController: NavHostController) {
+fun registerPage(navController: NavHostController, counterViewModel: UserInfoViewModel) {
     var userNameStr by remember { mutableStateOf("") }
     var phoneNumberStr by remember { mutableStateOf("") }
     var phoneSMsCodeStr by remember { mutableStateOf("") }
@@ -38,6 +46,25 @@ fun registerPage(navController: NavHostController) {
     var selectoptions by remember {
         mutableStateOf(options[0])
     }
+    val context = LocalContext.current
+    var isabled by remember {
+        mutableStateOf(true)
+    }
+
+
+    val smsCodeResult = counterViewModel.getSmSResult.collectAsState().value
+    Log.e("Register", "smsCodeResult--->${GsonHelper.toJson(smsCodeResult)}")
+    smsCodeResult?.let {
+        if (it.code == 1) {
+            isabled = false
+            ToastUtil.showShort(context, "data send success")
+        } else {
+            isabled = true
+            ToastUtil.showShort(context, "data send fail")
+        }
+    }
+
+
     Box(modifier = Modifier.pageBackground()) {
         ConstraintLayout {
             val (titleBar, userName, phoneNumber, smsCode, passCode, sex, loginBtn) = createRefs()
@@ -125,8 +152,15 @@ fun registerPage(navController: NavHostController) {
                 ) {
                     CustomButton(
                         text = "send",
+                        enabled = isabled,
                         onClick = {
-                            Log.e("Register", "Login")
+                            if (TextUtils.isEmpty(phoneNumberStr)) {
+                                Log.e("Register", "phone number is empty")
+                                ToastUtil.showShort(context, "phone number is empty")
+                                return@CustomButton
+                            }
+                            //send code
+                            counterViewModel.sendSmsCode(phoneNumberStr)
                         },
                         contentColor = colorResource(id = R.color.white),
                         backgroundColor = colorResource(id = R.color.mega_brand1),
@@ -163,7 +197,24 @@ fun registerPage(navController: NavHostController) {
                 .padding(start = 60.dp, end = 60.dp, top = 60.dp)) {
                 CustomButton(
                     text = "register", onClick = {
-                        Log.e("Register", "Login")
+                        if (TextUtils.isEmpty(userNameStr)) {
+                            ToastUtil.showShort(context, "user name is empty")
+                            return@CustomButton
+                        }
+                        if (TextUtils.isEmpty(phoneNumberStr)) {
+                            ToastUtil.showShort(context, "phone number is empty")
+                            return@CustomButton
+                        }
+
+                        if (TextUtils.isEmpty(phoneSMsCodeStr)) {
+                            ToastUtil.showShort(context, "phone sms code is empty")
+                            return@CustomButton
+                        }
+                        if (TextUtils.isEmpty(passCodeStr)) {
+                            ToastUtil.showShort(context, "pass code is empty")
+                            return@CustomButton
+                        }
+                        counterViewModel.register(phoneNumberStr, phoneSMsCodeStr, userNameStr, passCodeStr, if(selectoptions == options[0]) 0 else 1)
                     }, modifier = Modifier
                         .height(55.dp)
                         .fillMaxWidth()

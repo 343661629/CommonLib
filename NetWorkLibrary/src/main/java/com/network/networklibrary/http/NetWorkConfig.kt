@@ -1,6 +1,7 @@
 package com.network.networklibrary.http
 
 import android.util.Log
+import com.network.networklibrary.util.GsonHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -26,6 +27,7 @@ class NetWorkConfig {
      */
     fun get(url: String, param: Map<String, String>, config: IConfig): Flow<Result<String>> =
         flow {
+            Log.e(TAG, "start get request")
             val response = getRetrofitFactory(config).getApiService().get(url, param)
             emit(Result.success(response))
         }.catch { e ->
@@ -93,6 +95,7 @@ class NetWorkConfig {
         val requestFile = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
         return MultipartBody.Part.createFormData("file", file.name, requestFile)
     }
+
 
     /**
      * 获取RetrofitFactory,通过获取到RetrofitFactory，从而获取到apiservice对象

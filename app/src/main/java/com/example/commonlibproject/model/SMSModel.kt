@@ -8,5 +8,5 @@ package com.example.commonlibproject.model
 data class SMSModel(
     val code: Int,
     val `data`: Any,
-    val msg: String
+    val msg: String,
 )

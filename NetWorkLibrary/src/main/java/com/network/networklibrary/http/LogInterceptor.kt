@@ -1,7 +1,7 @@
 package com.network.networklibrary.http
 
 import android.util.Log
-import com.network.networklibrary.util.NetWorkUtils
+import com.network.networklibrary.util.isJson
 import okhttp3.Interceptor
 import okhttp3.Response
 import okio.Buffer
@@ -56,7 +56,7 @@ class LogInterceptor : Interceptor {
         val charset = body.contentType()?.charset(Charsets.UTF_8) ?: Charsets.UTF_8
         val bodyString = buffer.clone().readString(charset)
 
-        if (NetWorkUtils.isJson(bodyString)) {
+        if (isJson(bodyString)) {
             Log.i(TAG,bodyString)
         } else {
             Log.e(TAG,"[url = $url ] body：[$bodyString]")
