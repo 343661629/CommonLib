@@ -12,7 +12,7 @@ import com.google.gson.JsonSyntaxException
  */
 
 /**
- * 网络情趣处理结果
+ * 网络请求处理结果
  */
 inline fun <reified T> handleNetworkResult(
     result: Result<String>,

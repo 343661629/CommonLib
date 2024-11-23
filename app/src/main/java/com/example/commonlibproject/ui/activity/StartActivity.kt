@@ -86,7 +86,7 @@ class StartActivity : BaseComposeActivity() {
                 //延迟2秒跳转
                 delay(3000)
                 //未登录状态，则跳转到登录页面
-                val isLog = MMKVUtil.get(IS_LOGIN, false)
+                val isLog = MMKVUtil.get(IS_LOGIN, true)
                 if (isLog) {
                     val intent = Intent(context, MainActivity::class.java)
                     context.startActivity(intent)

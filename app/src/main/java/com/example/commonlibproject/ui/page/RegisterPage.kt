@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -51,9 +52,21 @@ fun registerPage(navController: NavHostController, counterViewModel: UserInfoVie
         mutableStateOf(true)
     }
 
+    val smsCodeResult by counterViewModel.getSmSResult.collectAsState()
 
-    val smsCodeResult = counterViewModel.getSmSResult.collectAsState().value
-    Log.e("Register", "smsCodeResult--->${GsonHelper.toJson(smsCodeResult)}")
+    val registerResult by counterViewModel.registerResult.collectAsState()
+    registerResult?.let {
+        if (it.code == 1) {
+            navController.popBackStack()
+        } else {
+            ToastUtil.showShort(context, "register fail")
+        }
+        counterViewModel.clearRegisterData()
+    }
+
+
+
+
     smsCodeResult?.let {
         if (it.code == 1) {
             isabled = false
@@ -62,8 +75,8 @@ fun registerPage(navController: NavHostController, counterViewModel: UserInfoVie
             isabled = true
             ToastUtil.showShort(context, "data send fail")
         }
+        counterViewModel.clearSmSCodeData()
     }
-
 
     Box(modifier = Modifier.pageBackground()) {
         ConstraintLayout {
@@ -214,7 +227,13 @@ fun registerPage(navController: NavHostController, counterViewModel: UserInfoVie
                             ToastUtil.showShort(context, "pass code is empty")
                             return@CustomButton
                         }
-                        counterViewModel.register(phoneNumberStr, phoneSMsCodeStr, userNameStr, passCodeStr, if(selectoptions == options[0]) 0 else 1)
+                        counterViewModel.register(
+                            phoneNumberStr,
+                            phoneSMsCodeStr,
+                            userNameStr,
+                            passCodeStr,
+                            if (selectoptions == options[0]) 0 else 1
+                        )
                     }, modifier = Modifier
                         .height(55.dp)
                         .fillMaxWidth()

@@ -22,31 +22,6 @@ class NetWorkQuest : IConfig {
 
 
     /**
-     * 获取所有新闻类型列表
-     */
-    inline fun <reified T> getNewsTypeList(type: Int, crossinline result: (Result<T>) -> Unit) {
-        val param = commonParam()
-        launchOnMain {
-            netWorkConfig.get(Constants.GET_NEWS_TYPE_LIST, param, this@NetWorkQuest).collect {
-                it.onSuccess { data ->
-                    Log.i("NewVideModel", "data--->$data")
-                    val parsedData = GsonHelper.fromJson(data, T::class.java)
-                    parsedData?.let {
-                        result(Result.success(parsedData))
-                    } ?: run {
-                        result(Result.failure(Throwable("data is null")))
-                    }
-                }.onFailure { error ->
-                    // 处理错误
-                    Log.e("NewVideModel", "error--->${error.message}")
-                    result(Result.failure(Throwable(error.message)))
-                }
-            }
-        }
-    }
-
-
-    /**
      * 获取验证码
      * @param phone 手机号
      * @param type 类型，0 获取注册验证码 1 修改密码验证码 2 验证码登录发送验证码
@@ -114,52 +89,79 @@ class NetWorkQuest : IConfig {
 
 
     /**
-     * 帐号密码登录
+     * 获取新闻类型
      */
-    fun getLoginPwd(): Flow<Result<String>> {
+    inline fun <reified T> getNewType(
+        crossinline result: (Result<T>) -> Unit
+    ) {
         val param = commonParam()
-        return netWorkConfig.get(Constants.GET_LOGIN_PWD, param, this)
+        launchOnMain {
+            netWorkConfig.get(Constants.GET_NEWS_TYPE, param, this@NetWorkQuest).collect { result ->
+                handleNetworkResult<T>(result,
+                    onSuccess = { parsedData ->
+                        result(Result.success(parsedData))
+                    },
+                    onFailure = { error ->
+                        result(Result.failure(error))
+                    }
+                )
+            }
+        }
     }
 
     /**
-     * 验证吗登录
+     * 获取新闻列表
      */
-    fun getLoginCode(): Flow<Result<String>> {
+    inline fun <reified T> getNewsList(
+        typeId: String,
+        page: String,
+        crossinline result: (Result<T>) -> Unit
+    ) {
         val param = commonParam()
-        return netWorkConfig.get(Constants.GET_LOGIN_CODE, param, this)
+        param["typeId"] = typeId
+        param["page"] = page
+        launchOnMain {
+            netWorkConfig.get(Constants.GET_NEWS_LIST, param, this@NetWorkQuest).collect { result ->
+                handleNetworkResult<T>(result,
+                    onSuccess = { parsedData ->
+                        result(Result.success(parsedData))
+                    },
+                    onFailure = { error ->
+                        result(Result.failure(error))
+                    }
+                )
+            }
+        }
     }
 
-    /**
-     * 获取用户信息
-     */
-    fun getUserInfo(): Flow<Result<String>> {
-        val param = commonParam()
-        return netWorkConfig.get(Constants.GET_USER_INFO, param, this)
-    }
+
 
     /**
-     * 更新用户信息
+     * 获取新闻详情
      */
-    fun getUpDateUserInfo(): Flow<Result<String>> {
+    inline fun <reified T> getNewDetail(
+        newsId:String,
+        crossinline result: (Result<T>) -> Unit
+    ) {
         val param = commonParam()
-        return netWorkConfig.get(Constants.GET_UPDATE_USER_INFO, param, this)
+        param["newsId"] = newsId
+        launchOnMain {
+            netWorkConfig.get(Constants.GET_NEWS_DETAIL, param, this@NetWorkQuest).collect { result ->
+                handleNetworkResult<T>(result,
+                    onSuccess = { parsedData ->
+                        result(Result.success(parsedData))
+                    },
+                    onFailure = { error ->
+                        result(Result.failure(error))
+                    }
+                )
+            }
+        }
     }
 
-    /**
-     * 修改密码
-     */
-    fun getUpDatePwd(): Flow<Result<String>> {
-        val param = commonParam()
-        return netWorkConfig.get(Constants.GET_UPDATE_PWD, param, this)
-    }
 
-    /**
-     * 退出登录
-     */
-    fun getLoginOut(): Flow<Result<String>> {
-        val param = commonParam()
-        return netWorkConfig.get(Constants.GET_LOGIN_OUT, param, this)
-    }
+
+
 
 
     override fun addBaseUrl(): String {

@@ -2,6 +2,8 @@ package com.common.commonlib.base
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.common.commonlib.model.UiState
+import androidx.compose.runtime.mutableStateMapOf
 
 /**
  *  @Description:ViewMpodel基类

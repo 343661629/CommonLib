@@ -15,16 +15,11 @@ object Constants {
     const val GET_SMS_CODE = "api/cloud_user/code/get"
     //手机号注册
     const val GET_REGISTER = "api/cloud_user/registe"
-    //帐号密码登录
-    const val GET_LOGIN_PWD = "api/cloud_user/login/psw"
-    //验证码登录
-    const val GET_LOGIN_CODE = "api/cloud_user/login/code"
-    //获取用户信息
-    const val GET_USER_INFO = "api/cloud_user/userinfo/get"
-    //更新用户信息
-    const val GET_UPDATE_USER_INFO = "api/cloud_user/userinfo/update"
-    //修改密码
-    const val GET_UPDATE_PWD = "api/cloud_user/psw/rest"
-    //退出登录
-    const val GET_LOGIN_OUT = "api/cloud_user/logout"
+    //获取新闻类型
+    const val GET_NEWS_TYPE = "api/news/types/v2"
+    //获取新闻列表
+    const val GET_NEWS_LIST = "api/news/list/v2"
+    //获取新闻详情
+    const val GET_NEWS_DETAIL = "api/news/details/v2"
+
 }

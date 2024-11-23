@@ -73,6 +73,9 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.constraintlayout.compose)
     implementation(libs.navigation.compose)
+    implementation(libs.coil.svg)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 
     implementation(project(":NetWorkLibrary"))
     implementation(project(":CommonLib"))

@@ -14,13 +14,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.commonlibproject.R
 import com.example.commonlibproject.model.BottomItemModel
 import com.example.commonlibproject.ui.page.HomePage
 import com.example.commonlibproject.ui.page.LotteryPage
+import com.example.commonlibproject.ui.page.NewsDetail
 import com.example.commonlibproject.ui.page.NewsPage
 import com.example.commonlibproject.ui.page.StoryPage
 import com.example.commonlibproject.ui.page.bottomNavigation
@@ -62,10 +65,7 @@ class MainActivity : ComponentActivity() {
         val itemsState = remember { items }
         ConstraintLayout(modifier = Modifier.fillMaxSize()) {
             val (page, bottomNavigation) = createRefs()
-//            Box {
-//                customTitleBar()
-//            }
-            val navController =  rememberNavController()
+            val navController = rememberNavController()
             Box(modifier = Modifier.constrainAs(page) {
                 start.linkTo(parent.start)
                 top.linkTo(parent.top)
@@ -74,10 +74,18 @@ class MainActivity : ComponentActivity() {
                 height = Dimension.fillToConstraints
             }) {
                 NavHost(navController = navController, startDestination = "home") {
-                    composable("home") { HomePage()}
-                    composable("news") { NewsPage() }
+                    composable("home") { HomePage() }
+                    composable("news") { NewsPage(navController) }
                     composable("story") { StoryPage() }
                     composable("lottery") { LotteryPage() }
+                    composable(
+                        "newsDetail/{newsId}",
+                        arguments = mutableListOf(navArgument("newsId") {
+                            type = NavType.StringType
+                        })
+                    ) { it ->
+                        NewsDetail(navController, newId = it.arguments?.getString("newsId") ?: "")
+                    }
                 }
             }
             Log.d("MainActivity", "onCreate: ")

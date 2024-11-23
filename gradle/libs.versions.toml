@@ -21,6 +21,8 @@ versionCode = "1"
 constraintlayout = "1.0.1"
 navigation = "2.7.3"
 mmkv_ref = "1.3.1"
+coil-compose_ref = "3.0.3"
+coil-network-okhttp = "3.0.3"
 
 
 
@@ -52,6 +54,10 @@ logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-intercep
 constraintlayout-compose = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "constraintlayout" }
 navigation-compose = {group="androidx.navigation", name="navigation-compose", version.ref="navigation"}
 mmkv = {group="com.tencent", name="mmkv", version.ref="mmkv_ref"}
+coil-compose = {group="io.coil-kt.coil3", name="coil-compose", version.ref="coil-compose_ref"}
+coil-svg = {group="io.coil-kt.coil3", name="coil-svg", version.ref="coil-compose_ref"}
+coil-network-okhttp = {group="io.coil-kt.coil3", name="coil-network-okhttp", version.ref="coil-network-okhttp"}
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

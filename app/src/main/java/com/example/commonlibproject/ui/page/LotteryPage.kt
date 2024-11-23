@@ -7,6 +7,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.example.commonlibproject.R
 import com.example.commonlibproject.ui.theme.color_45a7ff
 
 /**
@@ -17,7 +18,7 @@ import com.example.commonlibproject.ui.theme.color_45a7ff
 
 @Composable
 fun LotteryPage() {
-    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize().background(color = color_45a7ff)) {
-        Text(text = "Lottery Page")
+    Box {
+        customTitleBar(isNeedBack = false, titleStr = "lottery", titleColor = R.color.white)
     }
 }

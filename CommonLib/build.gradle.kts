@@ -36,6 +36,9 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -44,4 +47,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     implementation(libs.androidx.espresso.core)
     implementation(libs.mmkv)
+    implementation(libs.coil.svg)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 }

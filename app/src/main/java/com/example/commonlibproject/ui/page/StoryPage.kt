@@ -18,13 +18,7 @@ import com.example.commonlibproject.R
 
 @Composable
 fun StoryPage() {
-    Box(contentAlignment = Alignment.Center, modifier = Modifier
-        .fillMaxSize()
-        .background(
-            color = colorResource(
-                id = R.color.mega_error2
-            )
-        )) {
-        Text(text = "Story Page")
+    Box {
+        customTitleBar(isNeedBack = false, titleStr = "story", titleColor = R.color.white)
     }
 }

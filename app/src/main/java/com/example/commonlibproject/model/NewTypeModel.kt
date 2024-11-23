@@ -12,6 +12,7 @@ data class NewTypeModel(
 )
 
 data class Data(
+    var isSelectPosition:Boolean = false,
     val typeId: Int,
     val typeName: String
 )
