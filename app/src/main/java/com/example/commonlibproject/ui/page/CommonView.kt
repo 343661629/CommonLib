@@ -2,12 +2,14 @@ package com.example.commonlibproject.ui.page
 
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
@@ -23,15 +25,18 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.commonlibproject.R
 import com.example.commonlibproject.ui.theme.color_45a7ff
 
@@ -167,5 +172,78 @@ fun SingleChoiceComponent(
             }
         }
     }
+}
+
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun testItemSetting() {
+//    itemSetting("test")
+}
+
+
+@Composable
+fun itemSetting(
+    leftImage: Int = 0,
+    leftTitle: String = "",
+    rightTitle: String = "",
+    rightImage: Int = R.mipmap.xiayiyeqianjinchakangengduo,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier.fillMaxWidth()
+) {
+    ConstraintLayout(modifier = Modifier
+        .clickable {
+            onClick
+        }
+        .then(modifier)) {
+        val (leftIcon, leftText, rightText, rightIcon) = createRefs()
+        Image(
+            painter = painterResource(id = leftImage),
+            contentDescription = null,
+            modifier = Modifier
+                .constrainAs(leftIcon) {
+                    start.linkTo(parent.start)
+                    top.linkTo(parent.top)
+                    bottom.linkTo(parent.bottom)
+                }
+                .size(35.dp)
+        )
+
+        Text(text = leftTitle, modifier = Modifier
+            .constrainAs(leftText) {
+                start.linkTo(leftIcon.end)
+                top.linkTo(parent.top)
+                bottom.linkTo(parent.bottom)
+            }
+            .padding(start = 10.dp), style = TextStyle(fontSize = 18.sp, color = Color.Black))
+
+
+        Text(text = rightTitle,
+            modifier = Modifier
+                .constrainAs(rightText) {
+                    end.linkTo(rightIcon.start)
+                    top.linkTo(parent.top)
+                    bottom.linkTo(parent.bottom)
+                }
+                .padding(start = 10.dp, end = 10.dp),
+            style = TextStyle(fontSize = 18.sp, color = Color.Black))
+
+        Image(
+            painter = painterResource(id = R.mipmap.xiayiyeqianjinchakangengduo),
+            contentDescription = null,
+            modifier = Modifier
+                .constrainAs(rightIcon) {
+                    end.linkTo(parent.end)
+                    top.linkTo(parent.top)
+                    bottom.linkTo(parent.bottom)
+                }
+                .size(35.dp)
+                .padding(end = 10.dp)
+        )
+
+
+    }
+
+
 }
 

@@ -22,9 +22,9 @@ import androidx.navigation.navArgument
 import com.example.commonlibproject.R
 import com.example.commonlibproject.model.BottomItemModel
 import com.example.commonlibproject.ui.page.HomePage
-import com.example.commonlibproject.ui.page.LotteryPage
 import com.example.commonlibproject.ui.page.NewsDetail
 import com.example.commonlibproject.ui.page.NewsPage
+import com.example.commonlibproject.ui.page.SettingPage
 import com.example.commonlibproject.ui.page.StoryPage
 import com.example.commonlibproject.ui.page.bottomNavigation
 import com.example.commonlibproject.ui.theme.CommonLibProjectTheme
@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
         BottomItemModel("home", R.mipmap.shouyeweixuanzhong, mutableStateOf(true)),
         BottomItemModel("news", R.mipmap.xinwenweixuanzhong, mutableStateOf(false)),
         BottomItemModel("story", R.mipmap.gushixuanzhong, mutableStateOf(false)),
-        BottomItemModel("lottery", R.mipmap.caipiaoxuanzhong, mutableStateOf(false)),
+        BottomItemModel("setting", R.mipmap.profilesetting, mutableStateOf(false)),
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,7 +77,7 @@ class MainActivity : ComponentActivity() {
                     composable("home") { HomePage() }
                     composable("news") { NewsPage(navController) }
                     composable("story") { StoryPage() }
-                    composable("lottery") { LotteryPage() }
+                    composable("setting") { SettingPage() }
                     composable(
                         "newsDetail/{newsId}",
                         arguments = mutableListOf(navArgument("newsId") {
